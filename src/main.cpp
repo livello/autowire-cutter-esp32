@@ -1,4 +1,4 @@
-#define ENCODER_DO_NOT_USE_INTERRUPTS
+//#define ENCODER_DO_NOT_USE_INTERRUPTS
 #include <Encoder.h>
 
 #include <Stepper.h>
