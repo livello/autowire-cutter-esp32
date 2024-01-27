@@ -6,7 +6,7 @@
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SH110X.h>
-
+#include "main.h"
 #define motorInterfaceType 1
 #define i2c_Address 0x3c
 
@@ -73,14 +73,7 @@ Adafruit_SH1106G display = Adafruit_SH1106G(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, 
 int linMotSteppersCurrStep = 0;  // Current position/step of the stepper motor.
 
 // A component is a cell with a value on the OLED display.
-struct Component {
-    int x, y;  // Position
-    int w, h;  // Size
-    int value;  // Current value of the cell.
-    boolean highlighted;  // Whether the cell is the currently highlighted cell.
-    boolean selected;  // Whether the cell is currently the selected one, where its value will be controlled by the encoder.
-    boolean btn;  // If it is a button or not.
-};
+
 
 
 Component comps[] = { {0, 20, 40, 20, 0, 0, 0, 0},
