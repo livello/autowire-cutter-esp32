@@ -1,4 +1,4 @@
-//#define ENCODER_DO_NOT_USE_INTERRUPTS
+#define ENCODER_DO_NOT_USE_INTERRUPTS
 #include <Encoder.h>
 
 #include <Stepper.h>
@@ -9,7 +9,8 @@
 #include "main.h"
 #define motorInterfaceType 1
 #define i2c_Address 0x3c
-
+#include <GyverOLED.h>
+GyverOLED<SSH1106_128x64> oled;
 
 const int LINMOT_STEPPERS_STEP_PIN = 19;  // LINMOT: Linear motion
 const int LINMOT_STEPPERS_DIR_PIN = 18;
@@ -95,8 +96,33 @@ boolean encBtnPrevState = false;  // For OLED drawing.
 boolean encBtnPrevStateMain = false;  // For main loop.
 
 
+void g_setup() {
+	Serial.begin(115200);
+	oled.init();              // инициализация
+	Wire.setClock(400000L);
+	oled.clear();
+	oled.update();
+
+	byte textPos1 = 8;
+	byte textPos2 = 32;
+
+	oled.createBuffer(5, 0, 66, textPos2 + 8 + 2);
+
+	oled.roundRect(5, textPos1 - 4, 65, textPos1 + 8 + 2, OLED_STROKE);
+	oled.setCursorXY(10, textPos1);
+	oled.print("SET MODE");
+
+	oled.roundRect(5, textPos2 - 4, 65, textPos2 + 8 + 2, OLED_FILL);
+	oled.setCursorXY(10, textPos2);
+	oled.invertText(true);
+	oled.print("LOL KEK");
+
+	oled.sendBuffer();
+	oled.update();
+}
 
 void setup() {
+	g_setup();
     linMotSteppers.setSpeed(LINMOT_STEPPERS_SPEED);
     extruderStepper.setSpeed(EXTRUDER_STEPPER_SPEED);
 

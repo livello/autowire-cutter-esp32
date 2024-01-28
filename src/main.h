@@ -15,6 +15,7 @@ struct Component {
 	boolean selected;  // Whether the cell is currently the selected one, where its value will be controlled by the encoder.
 	boolean btn;  // If it is a button or not.
 };
+void g_setup();
 
 void handleOLEDDisplay();
 
